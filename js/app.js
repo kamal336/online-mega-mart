@@ -123,7 +123,6 @@ loadProducts();
 
 //  fetch data 
 const productDetails = id =>{
-  console.log(id)
   const url = `https://fakestoreapi.com/products/${id}`;
    fetch(url)
     .then(res=>res.json())
