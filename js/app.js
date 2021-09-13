@@ -20,15 +20,25 @@ const showProducts = (products) => {
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
-    div.innerHTML = `<div class="single-product">
+    div.innerHTML = `
+    <div class="single-product bg-white text-success">
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h3>${product.title}</h3>
+      <h3 class="text-primary">${product.title}</h3>
       <p>Category: ${product.category}</p>
+      <p>Reviews: ${product.rating.count}</p>
+      <p>Ratings: ${product.rating.rate}</p>
+      <p class="text-warning">
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star-half-alt"></i>
+      <i class="far fa-star"></i>
+      </p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <button onclick="productDetails(${product.id})" id="details-btn" class="btn btn-danger">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -105,3 +115,46 @@ loadProducts();
 /* =======================================
   Add to shopping cart & calculate start
   ===================================== */
+
+/* =====================================
+      single product details start 
+ =================================== */
+const productDetails = id =>{
+  console.log(id)
+  const url = `https://fakestoreapi.com/products/${id}`;
+   fetch(url)
+    .then(res=>res.json())
+    .then(data=>singleDetails(data))
+}
+
+// single details function 
+const singleDetails = details =>{
+    const detailsDiv = document.getElementById('details');
+    // clear product 
+    detailsDiv.textContent = '';
+    const div = document.createElement('div');
+    div.classList.add('col');
+    div.innerHTML = `
+    <div class="col">
+    <div class="card h-100 p-4">
+      <img src="${details.image}" class="card-img-top product-image" alt="...">
+        <h3 class="card-title text-primary fw-bold">${details.title}</h3>
+        <p>${details.description.slice(0,110)}</p>
+        <p class="text-warning"><span class="text-dark mx-5">Reviews: ${details.rating.count}</span>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+      
+        </p>
+        <h2>Price: $ ${details.price}</h2>
+        <button onclick="addToCart(${details.id},${details.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
+    </div>
+  </div>
+    `
+    detailsDiv.appendChild(div);
+}
+
+/* =====================================
+      single product details end
+ =================================== */
