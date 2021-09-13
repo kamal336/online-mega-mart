@@ -15,6 +15,7 @@ const loadProducts = () => {
   Show all products in UI start
   ============================ */
 const showProducts = (products) => {
+
   // loof for get single product 
   for (const product of products) {
     const image = product.image;
@@ -23,7 +24,7 @@ const showProducts = (products) => {
     div.innerHTML = `
     <div class="single-product bg-white text-success">
       <div>
-    <img class="product-image" src=${image}></img>
+      <img class="product-image" src=${image}></img>
       </div>
       <h3 class="text-primary">${product.title}</h3>
       <p>Category: ${product.category}</p>
@@ -119,6 +120,8 @@ loadProducts();
 /* =====================================
       single product details start 
  =================================== */
+
+//  fetch data 
 const productDetails = id =>{
   console.log(id)
   const url = `https://fakestoreapi.com/products/${id}`;
